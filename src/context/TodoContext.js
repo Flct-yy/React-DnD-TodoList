@@ -1,4 +1,4 @@
-import React, { act, createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 
 const TodoContext = createContext();
 
@@ -130,7 +130,7 @@ export const TodoProvider = ({ children }) => {
 export const useTodoContext = () => {
   const context = useContext(TodoContext);
   if (!context) {
-    throw new Error('useTodoContext must be used within a TodoProvider');
+    throw new Error('useTodoContext必须在TodoProvider中使用');
   }
   return context;
 };
