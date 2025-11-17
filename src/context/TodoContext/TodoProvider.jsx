@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { useReducer } from "react";
+import TodoContext from './TodoContext';
 
-const TodoContext = createContext();
 
 const initialState = {
   todos: [
@@ -34,7 +34,7 @@ function todoReducer(state, action) {
           completed: false,
         }],
       };
-    case ActionTypes.DELETE_TODOL:
+    case ActionTypes.DELETE_TODO:
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload.id)
@@ -69,7 +69,7 @@ function todoReducer(state, action) {
   }
 }
 
-export const TodoProvider = ({ children }) => {
+export default function TodoProvider({ children }) {
   // 使用 useReducer 管理 todo 状态
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
@@ -121,18 +121,8 @@ export const TodoProvider = ({ children }) => {
   };
 
   return (
-    <todoContext.Provider value={{ contextValue }}>
+    <TodoContext.Provider value={contextValue}>
       {children}
-    </todoContext.Provider>
+    </TodoContext.Provider>
   )
 }
-
-export const useTodoContext = () => {
-  const context = useContext(TodoContext);
-  if (!context) {
-    throw new Error('useTodoContext必须在TodoProvider中使用');
-  }
-  return context;
-};
-
-export default TodoContext;
