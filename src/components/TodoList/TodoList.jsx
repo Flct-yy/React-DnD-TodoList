@@ -17,11 +17,12 @@ export default function TodoList() {
     }
   };
 
+  // console.log(todos);
+  
   return (
     <div className="todo-list-container">
       <h2 className="todo-list-title">任务列表</h2>
       
-      {/* 添加新任务的表单 */}
       <form onSubmit={handleAddTodo} className="add-todo-form">
         <input
           type="text"
