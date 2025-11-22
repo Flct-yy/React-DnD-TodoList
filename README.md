@@ -1,16 +1,123 @@
-# React + Vite
+# React DnD TodoList 项目
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+一个功能丰富的 TodoList 应用，基于 React DnD 实现智能拖拽排序和批量任务管理功能。
 
-Currently, two official plugins are available:
+## 项目特点
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 批量任务管理
+- 支持多选任务进行统一操作
+- 批量选中状态下拖拽可触发多个任务同时移动
+- 智能排序算法确保批量任务在拖拽后的位置准确合理
 
-## React Compiler
+### 智能拖拽排序
+- 单个任务拖拽：拖动单个任务到任意位置
+- 批量任务拖拽：选中多个任务后，拖动其中一个即可移动全部选中任务
+- 基于鼠标位置的智能方向判断，自动决定任务移动方向
+- 视觉反馈：拖拽过程中提供清晰的视觉指示
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 技术栈
 
-## Expanding the ESLint configuration
+- **前端框架**：React 18
+- **构建工具**：Vite
+- **状态管理**：React Context
+- **拖拽库**：React DnD
+- **UI样式**：原生CSS
+- **代码规范**：ESLint
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 安装与运行
+
+### 前置条件
+- Node.js 18+
+- npm 或 yarn
+
+### 安装依赖
+```bash
+# 使用 npm
+npm install
+
+# 或使用 yarn
+yarn install
+```
+
+### 启动开发服务器
+```bash
+# 使用 npm
+npm run dev
+
+# 或使用 yarn
+yarn dev
+```
+
+### 构建生产版本
+```bash
+# 使用 npm
+npm run build
+
+# 或使用 yarn
+yarn build
+```
+
+### 预览生产构建
+```bash
+# 使用 npm
+npm run preview
+
+# 或使用 yarn
+yarn preview
+```
+
+## 项目结构
+
+```
+src/
+├── App.css               # 应用主样式
+├── App.jsx               # 应用主组件
+├── assets/               # 静态资源文件
+├── components/           # 组件目录
+│   ├── TodoItem/         # 任务项组件
+│   └── TodoList/         # 任务列表组件
+├── context/              # Context目录
+│   └── TodoContext/      # 任务状态管理
+├── dnd/                  # React DnD相关配置
+│   └── types.js          # 拖拽类型定义
+└── main.jsx              # 应用入口文件
+```
+
+## 核心功能详解
+
+### 批量选中
+- 通过点击任务项的复选框或特定区域选中任务
+- 支持多选模式下的连续选择
+- 选中状态实时更新并持久化到Context中
+
+### 单个和批量任务拖拽
+- 未选中状态：拖动单个任务到任意位置
+- 选中状态：拖动任一选中任务，所有选中任务将一起移动
+- 使用React DnD的useDrag和useDrop钩子实现复杂拖拽逻辑
+
+### 任务状态管理
+- 基于React Context实现全局状态管理
+- 支持任务的添加、删除、更新和重排序
+- 批量操作通过自定义reducer逻辑高效处理
+
+## 使用指南
+
+1. **添加任务**：在任务输入框中输入内容并按下回车
+2. **选中任务**：点击任务项左侧的复选框
+3. **批量操作**：选中多个任务后，可进行批量拖拽或删除
+4. **拖拽排序**：
+   - 单个任务：直接拖动任务项到目标位置
+   - 多个任务：选中多个任务后，拖动任意一个选中的任务
+5. **标记完成**：点击任务文本可切换完成状态
+
+## 开发说明
+
+### 组件设计
+- **TodoItem**：负责单个任务项的渲染和交互
+- **TodoList**：管理任务列表的整体布局和行为
+- **TodoContext**：提供全局状态和操作方法
+
+### 拖拽实现
+- 使用React DnD库实现复杂的拖拽交互
+- 通过useDrag钩子配置拖拽源，useDrop钩子配置放置目标
+- 根据任务选中状态动态调整拖拽行为
